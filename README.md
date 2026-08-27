@@ -6,6 +6,10 @@ delegation, versioning, audit logging, and PDF export.
 
 Built for CSE226 "Foundations of Vibe Coding" (North South University).
 
+**Live deployment**: https://memo-system-nu.vercel.app (frontend) /
+https://memo-system-api.onrender.com (API). Demo login: `admin@acme.example` /
+`Password123!` (see the full account table below).
+
 ## Tech stack
 
 - **Backend**: FastAPI (Python 3.11), SQLAlchemy 2.0 + Alembic, PostgreSQL, JWT cookie auth (`passlib`/`bcrypt`), `reportlab` for PDF export.
@@ -99,7 +103,7 @@ known limitations, and deployment URLs.
 
 Before submitting, per the course's spec sections 26–27:
 
-- [ ] Fill in the **Deployment Information** section at the bottom of `docs/project-documentation.md` with the live Vercel/Render URLs.
+- [x] Deployed: frontend on Vercel (https://memo-system-nu.vercel.app), backend on Render (https://memo-system-api.onrender.com), database on Neon. Both Vercel and Render are connected to this repo's `main` branch for auto-deploy on push.
 - [ ] Export this Claude Code conversation's complete prompt/response history (the session used to build this project) and add its link to `docs/project-documentation.md` §27.1. Do not include any secrets (API keys, `.env` contents, database passwords) in that export — redact if any appear.
 - [ ] Prepare a ZIP of this repository (excluding `backend/venv`, `frontend/node_modules`, and any `.env`/`.env.local` files, all already gitignored) for the source-code submission link, or simply link the GitHub repo.
 - [ ] Provide demonstration credentials (the seeded accounts in this README work) and confirm the deployed app is reachable.

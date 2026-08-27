@@ -251,9 +251,15 @@ path.
 
 ## Deployment Information
 
-- **Live System**: _pending deployment — see below_
+- **Live System**: https://memo-system-nu.vercel.app (frontend, Vercel) — backed by
+  https://memo-system-api.onrender.com (API, Render) and a Neon PostgreSQL database.
+  Both are connected to the `main` branch of the GitHub repo below, so future pushes
+  auto-deploy.
 - **Source Code**: https://github.com/asshejan/Memo-System
 - **Installation Instructions**: `README.md` at the repository root
+- **Demonstration accounts**: see the table in `README.md` ("Demo accounts created by
+  the seed script") — password `Password123!` for every seeded account, across two
+  separate organizations (`acme`, `globex`) to demonstrate tenant isolation.
 - **AI Prompt/Response History**: _the student should export this Claude Code
   conversation and add its link here before submission — see the note at the end of
   `README.md`'s task list_
