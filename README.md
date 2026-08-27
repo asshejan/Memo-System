@@ -94,3 +94,12 @@ cd backend  && uvicorn app.main:app --host 0.0.0.0 --port $PORT   # or deploy to
 
 See `docs/project-documentation.md` for architecture, database design, security notes,
 known limitations, and deployment URLs.
+
+## Submission checklist (course requirement, not app functionality)
+
+Before submitting, per the course's spec sections 26–27:
+
+- [ ] Fill in the **Deployment Information** section at the bottom of `docs/project-documentation.md` with the live Vercel/Render URLs.
+- [ ] Export this Claude Code conversation's complete prompt/response history (the session used to build this project) and add its link to `docs/project-documentation.md` §27.1. Do not include any secrets (API keys, `.env` contents, database passwords) in that export — redact if any appear.
+- [ ] Prepare a ZIP of this repository (excluding `backend/venv`, `frontend/node_modules`, and any `.env`/`.env.local` files, all already gitignored) for the source-code submission link, or simply link the GitHub repo.
+- [ ] Provide demonstration credentials (the seeded accounts in this README work) and confirm the deployed app is reachable.
