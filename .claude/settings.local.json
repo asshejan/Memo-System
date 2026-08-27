@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -m 10 -b /tmp/cookies_admin.txt -w \"\\\\nHTTP %{http_code}\\\\n\" http://localhost:8000/api/admin/stats)"
+    ]
+  }
+}

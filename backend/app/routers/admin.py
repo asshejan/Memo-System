@@ -14,7 +14,7 @@ from app.models.workflow_template import WorkflowTemplate, WorkflowTemplatePosit
 from app.models.organization import Organization
 from app.models.memo import Memo
 from app.models.workflow import WorkflowInstance
-from app.models.enums import MemoStatus, WorkflowInstanceStatus
+from app.models.enums import WorkflowInstanceStatus, UserStatus
 from app.schemas.auth import UserOut, OrganizationOut
 from app.schemas.org_admin import (
     DepartmentCreate, DepartmentUpdate, DepartmentOut,
@@ -53,29 +53,29 @@ def update_organization(
 @router.get("/stats")
 def get_org_stats(current_user: User = Depends(require_org_admin), db: Session = Depends(get_db)):
     org_id = current_user.organization_id
-    user_count = db.execute(select(func.count()).select_from(User).where(User.organization_id == org_id)).scalar_one()
-    active_user_count = db.execute(
-        select(func.count()).select_from(User).where(User.organization_id == org_id, User.status == "active")
-    ).scalar_one()
+
+    user_row = db.execute(
+        select(
+            func.count(),
+            func.count().filter(User.status == UserStatus.active),
+        ).where(User.organization_id == org_id)
+    ).one()
+    user_count, active_user_count = user_row
+
     dept_count = db.execute(
         select(func.count()).select_from(Department).where(Department.organization_id == org_id)
     ).scalar_one()
     memo_count = db.execute(select(func.count()).select_from(Memo).where(Memo.organization_id == org_id)).scalar_one()
-    pending = db.execute(
-        select(func.count()).select_from(WorkflowInstance).join(Memo).where(
-            Memo.organization_id == org_id, WorkflowInstance.status == WorkflowInstanceStatus.in_progress
-        )
-    ).scalar_one()
-    completed = db.execute(
-        select(func.count()).select_from(WorkflowInstance).join(Memo).where(
-            Memo.organization_id == org_id, WorkflowInstance.status == WorkflowInstanceStatus.approved
-        )
-    ).scalar_one()
-    rejected = db.execute(
-        select(func.count()).select_from(WorkflowInstance).join(Memo).where(
-            Memo.organization_id == org_id, WorkflowInstance.status == WorkflowInstanceStatus.rejected
-        )
-    ).scalar_one()
+
+    workflow_join = (
+        select(WorkflowInstance.status)
+        .join(Memo, WorkflowInstance.memo_id == Memo.id)
+        .where(Memo.organization_id == org_id)
+    )
+    workflow_statuses = db.execute(workflow_join).scalars().all()
+    pending = sum(1 for s in workflow_statuses if s == WorkflowInstanceStatus.in_progress)
+    completed = sum(1 for s in workflow_statuses if s == WorkflowInstanceStatus.approved)
+    rejected = sum(1 for s in workflow_statuses if s == WorkflowInstanceStatus.rejected)
     return {
         "user_count": user_count,
         "active_user_count": active_user_count,
