@@ -104,6 +104,6 @@ known limitations, and deployment URLs.
 Before submitting, per the course's spec sections 26–27:
 
 - [x] Deployed: frontend on Vercel (https://memo-system-nu.vercel.app), backend on Render (https://memo-system-api.onrender.com), database on Neon. Both Vercel and Render are connected to this repo's `main` branch for auto-deploy on push.
-- [ ] Export this Claude Code conversation's complete prompt/response history (the session used to build this project) and add its link to `docs/project-documentation.md` §27.1. Do not include any secrets (API keys, `.env` contents, database passwords) in that export — redact if any appear.
+- [x] AI prompt/response history: `docs/ai-conversation-history.md` (linked from `docs/project-documentation.md` §27.1). Covers the session through its creation — if you continue working with AI assistance afterward, extend or regenerate it so it stays complete.
 - [ ] Prepare a ZIP of this repository (excluding `backend/venv`, `frontend/node_modules`, and any `.env`/`.env.local` files, all already gitignored) for the source-code submission link, or simply link the GitHub repo.
 - [ ] Provide demonstration credentials (the seeded accounts in this README work) and confirm the deployed app is reachable.

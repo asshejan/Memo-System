@@ -260,6 +260,8 @@ path.
 - **Demonstration accounts**: see the table in `README.md` ("Demo accounts created by
   the seed script") — password `Password123!` for every seeded account, across two
   separate organizations (`acme`, `globex`) to demonstrate tenant isolation.
-- **AI Prompt/Response History**: _the student should export this Claude Code
-  conversation and add its link here before submission — see the note at the end of
-  `README.md`'s task list_
+- **AI Prompt/Response History**: `docs/ai-conversation-history.md` in this repository
+  — https://github.com/asshejan/Memo-System/blob/main/docs/ai-conversation-history.md.
+  Note: this covers the session through the point that file was generated; if
+  significant further AI-assisted work happens afterward, regenerate or extend it so it
+  stays complete per the assignment's requirement.
