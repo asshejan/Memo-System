@@ -20,6 +20,7 @@ from app.services.authorization import assert_can_view_memo
 from app.services.memo_number import generate_memo_number
 from app.services.audit import log_event
 from app.services import workflow_engine
+from app.services.notify import notify
 from app.models.comment import Comment
 from app.models.enums import CommentType
 
@@ -239,6 +240,23 @@ def add_comment(
     log_event(db, organization_id=current_user.organization_id, user_id=current_user.id,
               event_type="comment_added", description=f"Comment added on memo {memo.memo_number}",
               entity_type="Memo", entity_id=str(memo.id))
+
+    notify_ids = {memo.author_id}
+    if memo.workflow_instance:
+        current_step = next((s for s in memo.workflow_instance.steps if s.status == "current"), None)
+        if current_step:
+            notify_ids.add(current_step.assigned_user_id)
+    notify_ids.discard(current_user.id)
+    for uid in notify_ids:
+        notify(
+            db,
+            organization_id=memo.organization_id,
+            user_id=uid,
+            event_type="comment_added",
+            message=f"{current_user.name} commented on memo {memo.memo_number} — {memo.subject}",
+            memo_id=memo.id,
+        )
+
     db.commit()
     db.refresh(comment)
     return comment
