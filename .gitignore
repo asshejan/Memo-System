@@ -12,3 +12,6 @@ frontend/.env.local
 # OS / editor
 .DS_Store
 *.swp
+
+# Local Claude Code session settings (not part of the application)
+.claude/
